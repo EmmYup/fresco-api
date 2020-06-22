@@ -23,6 +23,12 @@ export class OrderProduct extends BaseEntity {
   @Column()
   amount: number;
 
+  @Column()
+  unitPrice: number;
+
+  @Column()
+  totalPrice: number;
+
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
   createdAt: Date;
 

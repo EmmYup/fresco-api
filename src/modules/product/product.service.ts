@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductRsDto } from './dto/productRs.dto';
 import { plainToClass } from 'class-transformer';
-
+//SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 @Injectable()
 export class ProductService {
   constructor(
