@@ -2,6 +2,7 @@ import {
   Controller,
   Post,
   Put,
+  Get,
   Delete,
   Param,
   Body,
@@ -37,6 +38,12 @@ export class OrderController {
     private readonly _priceService: PriceService,
   ) {}
 
+  @Get(':orderId')
+  async show(@Param('orderId') orderId): Promise<Order> {
+    const order = await this._orderService.byId(orderId);
+    return order;
+  }
+
   @Post()
   async save(@Body() order: CreateOrderRqDto, @Request() req) {
     const newOrder: Order = new Order();
@@ -54,6 +61,8 @@ export class OrderController {
     const orderProduct = new OrderProduct();
     orderProduct.amount = order.amount;
     orderProduct.product = requestedProduct;
+    orderProduct.unitPrice = productPrice.price;
+    orderProduct.totalPrice = productPrice.price * order.amount;
     await orderProduct.save();
 
     newOrder.totalPrice = productPrice.price * order.amount;
@@ -84,7 +93,7 @@ export class OrderController {
   }
 
   @Post(':orderId/confirm')
-  async confirmProduct(@Param('orderId') orderId) {
+  async confirmOrder(@Param('orderId') orderId) {
     const order: Order = await this._orderService.byId(orderId);
 
     //Validar precio???

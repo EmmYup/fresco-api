@@ -21,6 +21,7 @@ export class OrderService {
   async byId(id: number) {
     return await this._orderRepo.findOneOrFail({
       where: { id },
+      relations: ['orderProducts', 'orderProducts.product'],
     });
   }
 }
