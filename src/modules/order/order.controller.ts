@@ -78,17 +78,22 @@ export class OrderController {
   ) {
     const order: Order = await this._orderService.byId(orderId);
     const requestedProduct = await this._productService.byId(product.productId);
+    const productPrice = await this._priceService.lastPriceByProduct(
+      product.productId,
+    );
 
     if (!requestedProduct) throw new NotFoundException('Invalid ProductId');
     const orderProduct: OrderProduct = new OrderProduct();
     orderProduct.amount = product.amount;
     orderProduct.product = requestedProduct;
+    orderProduct.unitPrice = productPrice.price;
+    orderProduct.totalPrice = productPrice.price * product.amount;
     orderProduct.order = order;
 
     try {
-      await orderProduct.save();
+      return await orderProduct.save();
     } catch (error) {
-      throw new Error('Invalid ProductId');
+      throw new Error(`Invalid ProductId: ${error}`);
     }
   }
 
