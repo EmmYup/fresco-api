@@ -114,14 +114,14 @@ export class OrderController {
     @Body() product: DeleteProductToOrderRqDto,
   ) {
     const order: Order = await this._orderService.byId(orderId);
-    const requestedProduct = await this._productService.byId(product.productId);
+    // const requestedProduct = await this._productService.byId(product.productId);
 
     if (!order) throw new NotFoundException('Invalid OrderId');
-    if (!requestedProduct) throw new NotFoundException('Invalid ProductId');
+    // if (!requestedProduct) throw new NotFoundException('Invalid ProductId');
 
     const requestedOrderProduct = await this._orderProductService.byIdOrderAndProduct(
       order.id,
-      product.productId,
+      product.orderProductId,
     );
     if (!requestedOrderProduct)
       throw new NotFoundException('Product does not exist on order');

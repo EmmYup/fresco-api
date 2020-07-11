@@ -5,5 +5,5 @@ export class DeleteProductToOrderRqDto {
   @IsNotEmpty()
   @IsNumber()
   @ApiProperty()
-  productId: number;
+  orderProductId: number;
 }
