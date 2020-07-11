@@ -23,7 +23,6 @@ export class ProductController {
 
   @Get(':productId')
   async productById(@Param('productId') productId): Promise<any> {
-    //return 1;
     return this._priceService.lastPriceByProduct(productId);
   }
 }

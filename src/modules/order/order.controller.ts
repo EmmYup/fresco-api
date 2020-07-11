@@ -119,7 +119,7 @@ export class OrderController {
     if (!order) throw new NotFoundException('Invalid OrderId');
     // if (!requestedProduct) throw new NotFoundException('Invalid ProductId');
 
-    const requestedOrderProduct = await this._orderProductService.byIdOrderAndProduct(
+    const requestedOrderProduct = await this._orderProductService.byOrderProductId(
       order.id,
       product.orderProductId,
     );
@@ -128,6 +128,7 @@ export class OrderController {
 
     try {
       await requestedOrderProduct.remove();
+      return await this._orderService.byId(orderId);
     } catch (error) {
       throw new Error('Delete Error');
     }

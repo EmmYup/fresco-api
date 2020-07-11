@@ -19,4 +19,10 @@ export class OrderProductService {
       where: [{ order: orderId, product: productId }],
     });
   }
+
+  async byOrderProductId(orderId: number, id: number): Promise<OrderProduct> {
+    return await this._orderProductRepo.findOne({
+      where: [{ order: orderId, id }],
+    });
+  }
 }

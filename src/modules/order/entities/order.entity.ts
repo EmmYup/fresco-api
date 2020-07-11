@@ -52,6 +52,7 @@ export class Order extends BaseEntity {
   user: User;
 
   @OneToOne(type => OrderDeliver)
+  @JoinColumn()
   orderDeliver: OrderDeliver;
 
   @OneToMany(
