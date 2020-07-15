@@ -154,6 +154,9 @@ export class OrderController {
     //Validar precio???
     try {
       await order.save();
-    } catch (error) {}
+      return await this._orderService.byId(orderId);
+    } catch (error) {
+      throw new Error(`Deliver error: ${error}`);
+    }
   }
 }
