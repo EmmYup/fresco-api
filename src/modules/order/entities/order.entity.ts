@@ -41,6 +41,9 @@ export class Order extends BaseEntity {
   @Column({ name: 'total_price' })
   totalPrice: number;
 
+  @Column({ type: 'text', default: '' })
+  message: string;
+
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
   createdAt: Date;
 

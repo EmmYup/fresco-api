@@ -129,8 +129,8 @@ export class OrderController {
     try {
       await requestedOrderProduct.remove();
       return await this._orderService.byId(orderId);
-    } catch (error) {
-      throw new Error('Delete Error');
+    } catch (err) {
+      throw new Error(`Delete Error: ${err}`);
     }
   }
 
@@ -151,6 +151,7 @@ export class OrderController {
     deliver.longitude = deliverRq.longitude;
     await deliver.save();
     order.orderDeliver = deliver;
+    order.status = OrderStatus.inDeliveryProcess;
     //Validar precio???
     try {
       await order.save();
