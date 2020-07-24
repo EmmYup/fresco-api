@@ -9,4 +9,9 @@ export class PaymentService {
     @InjectRepository(Payment)
     private readonly _paymentRepo: Repository<Payment>,
   ) {}
+  async byId(id: number) {
+    return await this._paymentRepo.findOneOrFail({
+      where: { id },
+    });
+  }
 }

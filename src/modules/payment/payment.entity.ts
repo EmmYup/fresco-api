@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 import { Order } from '../order/entities/order.entity';
 
-export enum Type {
+export enum Types {
   oxxo = 'OXXO_DEPOSIT',
   cash = 'CASH',
 }
@@ -23,9 +23,9 @@ export class Payment extends BaseEntity {
   @Index()
   @Column({
     type: 'enum',
-    enum: Type,
+    enum: Types,
   })
-  type: Type;
+  type: Types;
 
   @Column()
   referenceCode: string;

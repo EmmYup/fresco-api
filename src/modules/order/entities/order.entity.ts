@@ -15,6 +15,7 @@ import {
 import { User } from '../../user/user.entity';
 import { OrderDeliver } from './orderDeliver.entity';
 import { OrderProduct } from './orderProduct.entity';
+import { Payment } from '../../payment/payment.entity';
 
 export enum OrderStatus {
   inProcess = 'IN_PROCESS',
@@ -55,6 +56,10 @@ export class Order extends BaseEntity {
   @OneToOne(type => OrderDeliver)
   @JoinColumn()
   orderDeliver: OrderDeliver;
+
+  @OneToOne(type => Payment)
+  @JoinColumn()
+  payment: Payment;
 
   @OneToMany(
     type => OrderProduct,
