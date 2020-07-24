@@ -36,7 +36,7 @@ export class PaymentController {
     try {
       const newPayment: Payment = new Payment();
 
-      newPayment.type = payment.type === 'cash' ? Types.cash : Types.oxxo;
+      newPayment.type = Types[payment.type];
       newPayment.referenceCode = payment.referenceCode;
       await newPayment.save();
 
@@ -60,7 +60,7 @@ export class PaymentController {
       const paymentToUpdate: Payment = await this._paymentService.byId(
         paymentId,
       );
-      paymentToUpdate.type = payment.type === 'cash' ? Types.cash : Types.oxxo;
+      paymentToUpdate.type = Types[payment.type];
       paymentToUpdate.referenceCode = payment.referenceCode;
       await paymentToUpdate.save();
 
