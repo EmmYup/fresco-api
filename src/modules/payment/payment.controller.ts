@@ -9,7 +9,6 @@ import {
   NotFoundException,
   UseGuards,
   Request,
-  Request,
 } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
@@ -42,6 +41,7 @@ export class PaymentController {
       await newPayment.save();
 
       const order = await this._orderService.byId(orderId);
+      order.status = OrderStatus.paymentChoosen;
       order.payment = newPayment;
       await order.save();
       return await this._orderService.byId(orderId);
@@ -65,6 +65,9 @@ export class PaymentController {
       await paymentToUpdate.save();
 
       const order = await this._orderService.byId(orderId);
+      if (paymentToUpdate.type === Types.oxxo) {
+        order.status = OrderStatus.payed;
+      }
       order.payment = paymentToUpdate;
       await order.save();
       return await this._orderService.byId(orderId);
