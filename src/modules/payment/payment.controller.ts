@@ -13,8 +13,11 @@ import {
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { Payment } from './payment.entity';
+import { PaymentService } from './payment.service';
 
 @ApiBearerAuth()
 @UseGuards(AuthGuard())
-@Controller('order')
-export class PaymentController {}
+@Controller('payment')
+export class PaymentController {
+  constructor(private readonly _paymentService: PaymentService) {}
+}

@@ -5,6 +5,7 @@ import { Order } from '../order/entities/order.entity';
 import { AuthModule } from '../auth/auth.module';
 import { OrderModule } from '../order/order.module';
 import { PaymentController } from './payment.controller';
+import { PaymentService } from './payment.service';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { PaymentController } from './payment.controller';
     PaymentModule,
     OrderModule,
   ],
-  //   providers: [OrderService, OrderProductService],
+  providers: [PaymentService],
   controllers: [PaymentController],
 })
 export class PaymentModule {}
