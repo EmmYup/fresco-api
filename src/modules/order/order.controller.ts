@@ -151,7 +151,6 @@ export class OrderController {
     deliver.longitude = deliverRq.longitude;
     await deliver.save();
     order.orderDeliver = deliver;
-    order.status = OrderStatus.inDeliveryProcess;
     //Validar precio???
     try {
       await order.save();

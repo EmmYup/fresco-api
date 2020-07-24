@@ -18,11 +18,12 @@ import { OrderProduct } from './orderProduct.entity';
 
 export enum OrderStatus {
   inProcess = 'IN_PROCESS',
-  confirmed = 'CONFIRMED',
+  paymentChoosen = 'PAYMENT_CHOOSEN',
   payed = 'PAYED',
-  cancelled = 'CANCELLED',
+  confirmed = 'CONFIRMED',
   inDeliveryProcess = 'IN_DELIVERY_PROCESS',
   finished = 'FINISHED',
+  cancelled = 'CANCELLED',
 }
 
 @Entity()
