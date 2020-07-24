@@ -2,11 +2,8 @@ import {
   Controller,
   Post,
   Put,
-  Get,
-  Delete,
   Param,
   Body,
-  NotFoundException,
   UseGuards,
   Request,
 } from '@nestjs/common';
@@ -40,7 +37,7 @@ export class PaymentController {
       newPayment.referenceCode = payment.referenceCode;
       await newPayment.save();
 
-      const order = await this._orderService.byId(orderId);
+      const order: Order = await this._orderService.byId(orderId);
       order.status = OrderStatus.paymentChoosen;
       order.payment = newPayment;
       await order.save();
@@ -64,13 +61,15 @@ export class PaymentController {
       paymentToUpdate.referenceCode = payment.referenceCode;
       await paymentToUpdate.save();
 
-      const order = await this._orderService.byId(orderId);
+      const order: Order = await this._orderService.byId(orderId);
       if (paymentToUpdate.type === Types.oxxo) {
         order.status = OrderStatus.payed;
       }
       order.payment = paymentToUpdate;
       await order.save();
       return await this._orderService.byId(orderId);
-    } catch (err) {}
+    } catch (err) {
+      throw new Error(`Error updating payment: ${err}`);
+    }
   }
 }

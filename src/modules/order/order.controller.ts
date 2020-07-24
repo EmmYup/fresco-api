@@ -159,4 +159,17 @@ export class OrderController {
       throw new Error(`Deliver error: ${error}`);
     }
   }
+
+  @Put(':orderId/delivery')
+  async deliverOrder(@Param('orderId') orderId) {
+    try {
+      const order: Order = await this._orderService.byId(orderId);
+      if (!order) throw new NotFoundException('Invalid OrderId');
+      order.status = OrderStatus.inDeliveryProcess;
+      await order.save();
+      return await this._orderService.byId(orderId);
+    } catch (err) {
+      throw new Error(`Delivery error: ${err}`);
+    }
+  }
 }
